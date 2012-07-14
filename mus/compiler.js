@@ -1,8 +1,8 @@
-/*Interpreters and Compilers 
+//Interpreters and Compilers 
 
-Write a function prelude that takes a music expression 
-expr as input and returns an expression that means to play
-a d4 note for 500 milliseconds and then play expr.*/
+// Write a function prelude that takes a music expression 
+// expr as input and returns an expression that means to play
+// a d4 note for 500 milliseconds and then play expr.
 
 var prelude = function(expr) {
     return { tag: 'seq', 
@@ -10,13 +10,13 @@ var prelude = function(expr) {
              right: expr };
 };
 
-/*Abstract Syntax Trees
+//Abstract Syntax Trees
 
-This time write a function reverse that takes a music expression
- as input and returns a new music expression that plays the notes
- in the reverse order. Your function shouldn't modify the input,
-  it should just return a new reversed expression.
-*/
+// This time write a function reverse that takes a music expression
+// as input and returns a new music expression that plays the notes
+// in the reverse order. Your function shouldn't modify the input,
+// it should just return a new reversed expression.
+
 
 var reverse = function(expr) {
     if(expr.tag === 'note') {
@@ -29,13 +29,13 @@ var reverse = function(expr) {
     };
 };
 
-/*Compiling Music
+//Compiling Music
 
-Write a function endTime that takes a start time 
-time in milliseconds and a MUS expression expr.
-Assuming expr starts playing at time time, the 
-function should return the time when expr finishes.
-*/
+// Write a function endTime that takes a start time 
+// time in milliseconds and a MUS expression expr.
+// Assuming expr starts playing at time time, the 
+// function should return the time when expr finishes.
+
 
 
 var endTime = function (time, expr) {
@@ -44,11 +44,11 @@ var endTime = function (time, expr) {
     return endTime(ltime, expr.right);
 };
 
-/*Compiling Music for reals
+//Compiling Music for reals
 
-Write a function compile that compiles MUS 
-songs into NOTE songs.
-*/
+//Write a function compile that compiles MUS 
+//songs into NOTE songs.
+
 var compileT = function (musexpr, time) {
     if (musexpr.tag === 'note') {
         return [ { tag: 'note', 
@@ -66,19 +66,21 @@ var compile = function (musexpr) {
     return compileT(musexpr, 0);
 };
 
-/*Styles of Interpretation 
-Assuming you have compile and playNOTE implemented
-in JavaScript, implement playMUS in JavaScript.
-*/
+//Styles of Interpretation 
+
+// Assuming you have compile and playNOTE implemented
+// in JavaScript, implement playMUS in JavaScript.
+
 
 var playMUS = function (musexpr) {
     return playNOTE(compile(musexpr));
 };
 
-/*Parallel Composition
-Write a function compile that compiles MUS 
-songs that can contain 'par' into NOTE songs.
-*/
+//Parallel Composition
+
+// Write a function compile that compiles MUS 
+// songs that can contain 'par' into NOTE songs.
+
 
 var endTime = function (time, expr) {
     if (expr.tag === 'note') return time + expr.dur;
@@ -95,6 +97,9 @@ var compileT = function (musexpr, time) {
                   start: time,
                   dur: musexpr.dur } ];
     }
+
+
+
     if (musexpr.tag === 'seq') {
         left = compileT(musexpr.left, time);
         ldur = endTime(time, musexpr.left);
